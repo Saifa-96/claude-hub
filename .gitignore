@@ -1,27 +1,19 @@
-# Credentials & secrets — never commit
-.credentials.json
-auth.json
-*.key
-.env
-.env.*
+# Ignore everything by default
+*
 
-# Machine/personal-local settings
-settings.local.json
-**/settings.local.json
+# Keep this file tracked
+!.gitignore
 
-# Session cache & history
-sessions/
-projects/
-todos/
-shell-snapshots/
-statsig/
-.cache/
+# Keep repository metadata and docs
+!README.md
 
-# Logs
-logs/
-*.log
+# Keep shared Claude configuration
+!settings.json
+!settings.local.example.json
 
-# OS / editor noise
-.DS_Store
-Thumbs.db
-node_modules/
+# Keep helper script
+!install-claude-plugins.sh
+
+# Keep skills library
+!skills/
+!skills/**

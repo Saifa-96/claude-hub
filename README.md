@@ -28,7 +28,7 @@ export CLAUDE_CONFIG_DIR="$HOME/Documents/path/to/claude-hub"
 Replace the path with your real absolute path, then run:
 
 ```powershell
-[System.Environment]::SetEnvironmentVariable("CLAUDE_CONFIG_DIR", "D:\Workspace\claude-hub", "User")
+[System.Environment]::SetEnvironmentVariable("CLAUDE_CONFIG_DIR", "D:\path-to\claude-hub", "User")
 ```
 
 Optional — verify it's set:
@@ -39,17 +39,65 @@ echo $CLAUDE_CONFIG_DIR   # PowerShell: [System.Environment]::GetEnvironmentVari
 
 ## 3. Configure API access
 
-API URL and key live in the `env` block of `settings.local.json`, which is
-git-ignored so your key never gets committed. Create it from the example:
+Shared defaults live in `settings.json`.
+
+Machine-local API credentials should go in `settings.local.json` (git-ignored).
+Create it from the example file:
 
 ```bash
 cp settings.local.example.json settings.local.json
 ```
 
-Then edit `settings.local.json` and fill in your values:
+Or on Windows PowerShell:
+
+```powershell
+Copy-Item .\settings.local.example.json .\settings.local.json
+```
+
+Then edit `settings.local.json` and set:
 
 - `ANTHROPIC_BASE_URL` — API endpoint (the official URL, or a proxy/gateway)
-- `ANTHROPIC_AUTH_TOKEN` — your auth token (use `ANTHROPIC_API_KEY` instead for the official Anthropic API)
+- `ANTHROPIC_AUTH_TOKEN` — your auth token for compatible gateways
+- `ANTHROPIC_API_KEY` — use this instead of `ANTHROPIC_AUTH_TOKEN` for the official Anthropic API
 
-`settings.local.json` merges over `settings.json` at runtime. See the env-vars
-docs: https://code.claude.com/docs/en/env-vars
+`settings.local.json` merges over `settings.json` at runtime.
+
+See env var docs: https://code.claude.com/docs/en/env-vars
+
+## 4. Reinstall plugins on a new machine
+
+This repo can declare shared plugins in the `enabledPlugins` block of
+`settings.json`. The helper script reads that project config and reinstalls
+every enabled plugin.
+
+Dry run:
+
+```sh
+./install-claude-plugins.sh --dry-run
+```
+
+Install all plugins from the project config:
+
+```sh
+./install-claude-plugins.sh
+```
+
+Windows:
+
+- Use Git Bash (recommended) or WSL to run this `.sh` script.
+- In Git Bash, `cd` to the repository root and run the same commands:
+
+```sh
+./install-claude-plugins.sh --dry-run
+./install-claude-plugins.sh
+```
+
+- If launching from PowerShell, start Git Bash first (or invoke your local
+	`bash.exe` path), then run the commands above inside that shell.
+
+The script uses `jq` when available and falls back to `node` if not.
+
+On Windows, PowerShell cannot execute `.sh` scripts directly.
+
+On another machine, clone this repo, point `CLAUDE_CONFIG_DIR` at it, then run
+the script to install the plugins declared in the project config.
