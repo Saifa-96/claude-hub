@@ -1,0 +1,27 @@
+# Credentials & secrets — never commit
+.credentials.json
+auth.json
+*.key
+.env
+.env.*
+
+# Machine/personal-local settings
+settings.local.json
+**/settings.local.json
+
+# Session cache & history
+sessions/
+projects/
+todos/
+shell-snapshots/
+statsig/
+.cache/
+
+# Logs
+logs/
+*.log
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+node_modules/
