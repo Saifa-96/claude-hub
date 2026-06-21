@@ -11,8 +11,9 @@
 !settings.json
 !settings.local.example.json
 
-# Keep helper script
-!install-claude-plugins.sh
+# Keep scripts
+!scripts/
+!scripts/**
 
 # Keep skills library
 !skills/

@@ -1,5 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://api.ikuncode.cc"
+  },
+  "apiKeyHelper": "powershell -NoProfile -ExecutionPolicy Bypass -File \"%CLAUDE_CONFIG_DIR%\\scripts\\api-key-helper.ps1\" || sh \"$CLAUDE_CONFIG_DIR/scripts/api-key-helper.sh\"",
   "permissions": {
     "defaultMode": "bypassPermissions"
   },
@@ -13,5 +17,6 @@
   "theme": "dark",
   "skills": [
     "skills"
-  ]
+  ],
+  "effortLevel": "medium"
 }

@@ -56,11 +56,10 @@ Copy-Item .\settings.local.example.json .\settings.local.json
 
 Then edit `settings.local.json` and set:
 
-- `ANTHROPIC_BASE_URL` — API endpoint (the official URL, or a proxy/gateway)
 - `ANTHROPIC_AUTH_TOKEN` — your auth token for compatible gateways
-- `ANTHROPIC_API_KEY` — use this instead of `ANTHROPIC_AUTH_TOKEN` for the official Anthropic API
 
-`settings.local.json` merges over `settings.json` at runtime.
+`settings.json` reads the token through `apiKeyHelper`, so secrets stay out of the
+shared config.
 
 See env var docs: https://code.claude.com/docs/en/env-vars
 
@@ -73,13 +72,13 @@ every enabled plugin.
 Dry run:
 
 ```sh
-./install-claude-plugins.sh --dry-run
+./scripts/install-claude-plugins.sh --dry-run
 ```
 
 Install all plugins from the project config:
 
 ```sh
-./install-claude-plugins.sh
+./scripts/install-claude-plugins.sh
 ```
 
 Windows:
@@ -88,8 +87,8 @@ Windows:
 - In Git Bash, `cd` to the repository root and run the same commands:
 
 ```sh
-./install-claude-plugins.sh --dry-run
-./install-claude-plugins.sh
+./scripts/install-claude-plugins.sh --dry-run
+./scripts/install-claude-plugins.sh
 ```
 
 - If launching from PowerShell, start Git Bash first (or invoke your local

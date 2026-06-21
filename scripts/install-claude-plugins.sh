@@ -2,14 +2,9 @@
 
 set -eu
 
-if [ -z "${BASH_VERSION:-}${ZSH_VERSION:-}${POSH_VERSION:-}" ] && [ "${OS:-}" = "Windows_NT" ]; then
-  echo "This script must be run from a POSIX shell such as Git Bash, WSL, or macOS/Linux sh." >&2
-  echo "PowerShell cannot execute .sh scripts directly." >&2
-  exit 1
-fi
-
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-SETTINGS_PATH="$SCRIPT_DIR/settings.json"
+REPO_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+SETTINGS_PATH="$REPO_DIR/settings.json"
 DRY_RUN=${DRY_RUN:-0}
 
 case "${1:-}" in
